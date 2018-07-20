@@ -1,6 +1,11 @@
 <launch>
+    <arg name="mode"
+         default="minimal"
+         doc="specify which file containing the topics to be read to be loaded">
+    </arg>
+
     <group ns="data_recording">
-      <rosparam command="load" file="$(find data_recording)/config/config.yaml" />
+      <rosparam command="load" file="$(find data_recording)/config/$(arg mode).yaml" />
     </group>
 
     <node name="data_recording" pkg="data_recording" type="data_recording.py" output="screen" />
