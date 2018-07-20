@@ -13,28 +13,34 @@ Rosbag files are saved with the current date and time as a filename.
 
 ## Usage
 
-The package creates three services, which can be called with a `std_srvs.srv.TriggerRequest` message:
-* /data\_recording/start\_recording
-* /data\_recording/stop\_recording
-* /data\_recording/toggle\_recording
+The package creates three services:
+* `/data\_recording/start\_recording` which can be called with a `std_srvs.srv.RecordRequest` message
+* `/data\_recording/stop\_recording` which can be called with a `std_srvs.srv.TriggerRequest` message
+* `/data\_recording/toggle\_recording` which can be called with a `std_srvs.srv.TriggerRequest` message
 
-Add the following import to your ROS node:
+Add the following imports to your ROS node:
 
-`from std_srvs.srv import Trigger`
+```python
+from std_srvs.srv import Trigger, TriggerRequest
+from data_recording.srv import Record, RecordRequest
+```
 
 In the init of your ROS node, launch the services as
 ```python
-start_record_srv = rospy.ServiceProxy('/data_recording/start_recording', Trigger)
+start_record_srv = rospy.ServiceProxy('/data_recording/start_recording', Record)
 stop_record_srv = rospy.ServiceProxy('/data_recording/stop_recording', Trigger)
 ```
 
 Then in a regular service call:
 
 ```python
-start_record_srv(TriggerRequest())
+start_record_srv(RecordRequest('name of your file')  # this allows you to modify name based on e.g. the run
 do_some_stuff()
 stop_record_srv(TriggerRequest())
 ```
+
+If you leave the `bagname` field of the `RecordRequest` empty, the file will be named using 
+the datetime of the recording.
 
 ### Annotations
 

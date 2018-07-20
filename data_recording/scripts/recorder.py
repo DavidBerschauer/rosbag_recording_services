@@ -1,16 +1,17 @@
 #!/usr/bin/env python
 
+import os
+import subprocess
+
 import rospy
 import rosnode
 from std_srvs.srv import Trigger, TriggerResponse
-
-import os
-import subprocess
+from data_recording.srv import Record, RecordResponse
 
 
 class DataRecorder():
     def __init__(self):
-        self.start_recording_service = rospy.Service('/data_recording/start_recording', Trigger, self.start_recording)
+        self.start_recording_service = rospy.Service('/data_recording/start_recording', Record, self.start_recording)
         self.stop_recording_service = rospy.Service('/data_recording/stop_recording', Trigger, self.stop_recording)
         self.stop_recording_service = rospy.Service('/data_recording/toggle_recording', Trigger, self.toggle_recording)
 
@@ -22,8 +23,7 @@ class DataRecorder():
         self.topics = rospy.get_param('/data_recording/topics', [])
         if not self.topics:
             rospy.logerr('No Topics Specified.')
-
-        self.command = ['rosrun', 'rosbag', 'record', '-e'] + self.topics + ['__name:=data_recording_myrecorder']
+        self.command = None
 
         rospy.loginfo('Data Recorder Started')
 
@@ -38,10 +38,16 @@ class DataRecorder():
             rospy.logerr('Already Recording')
             return TriggerResponse(False, 'Already Recording')
 
-        self.process = subprocess.Popen(self.command, cwd=self.output_directory)
+        if req.bagname != '':
+            command = ['rosrun', 'rosbag', 'record', '-e', '-O', req.bagname] + self.topics + \
+                      ['__name:=data_recording_myrecorder']
+        else: # default to datetime bag name
+            command = ['rosrun', 'rosbag', 'record', '-e'] + self.topics + \
+                      ['__name:=data_recording_myrecorder']
+        self.process = subprocess.Popen(command, cwd=self.output_directory)
         self.recording = True
         rospy.loginfo('Started recorder, PID %s' % self.process.pid)
-        return TriggerResponse(True, 'Started recorder, PID %s' % self.process.pid)
+        return RecordResponse(True, 'Started recorder, PID %s' % self.process.pid)
 
     def stop_recording(self, req):
         if not self.recording:

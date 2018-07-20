@@ -4,11 +4,12 @@
 import rospy
 
 from std_srvs.srv import Trigger, TriggerRequest
+from data_recording.srv import Record, RecordRequest
 from visualization_msgs.msg import Marker
 
 
 def something_interesting():
-    """Dummy thing that takes up time"""
+    """Dummy thing that takes up time and publishes annotations"""
     global annotation_pub
 
     rospy.sleep(4)
@@ -62,14 +63,17 @@ def create_text_marker(text, position, orientation=[0, 0, 0, 1], frame_id='/worl
 
 if __name__ == '__main__':
     rospy.init_node('recording_example')
-    rospy.loginfo('starting recording example')
+    rospy.loginfo('starting recording example, waiting for services to come up...')
 
-    start_record_srv = rospy.ServiceProxy('/data_recording/start_recording', Trigger)
+    rospy.wait_for_service('/data_recording/start_recording')
+    rospy.wait_for_service('/data_recording/stop_recording')
+    rospy.loginfo('...services up')
+    start_record_srv = rospy.ServiceProxy('/data_recording/start_recording', Record)
     stop_record_srv = rospy.ServiceProxy('/data_recording/stop_recording', Trigger)
 
     annotation_pub = rospy.Publisher('/data_recording/annotations', Marker, queue_size=10)
 
-    start_record_srv(TriggerRequest())
+    start_record_srv(RecordRequest('example_annotations'))
     # now do something we want to record
     try:
         something_interesting()

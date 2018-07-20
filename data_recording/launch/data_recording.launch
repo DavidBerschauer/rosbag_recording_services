@@ -13,6 +13,6 @@
       <rosparam param="output_directory" subst_value="true">$(arg output_dir)</rosparam>
     </group>
 
-    <node name="data_recording" pkg="data_recording" type="data_recording.py" output="screen" />
+    <node name="recorder" pkg="data_recording" type="recorder.py" output="screen" />
 
 </launch>
