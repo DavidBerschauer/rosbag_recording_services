@@ -33,3 +33,14 @@ start_record_srv(std_srvs.srv.TriggerRequest())
 do_some_stuff()
 stop_record_srv(std_srvs.srv.TriggerRequest())
 ```
+
+### Annotations
+
+From within the code you can add annotations to the stored rosbags by publishing 
+strings to a special topic `/data_recording/annotations`. 
+Simply create a publisher in your initialization: 
+```python
+annotation_pub = rospy.Publisher('/data_recording/annotations', std_msgs.msg.String, queue_size=10)
+```
+
+Publish an annotation any time anywhere using `annotation_pub.publish(std_msgs.msg.String("foo"))`

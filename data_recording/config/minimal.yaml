@@ -10,3 +10,4 @@ topics:
   - '/camera/color/camera_info'
   - '/ggcnn_cout/command'
   - '/tf'
+  - '/data_recording/annotations'
