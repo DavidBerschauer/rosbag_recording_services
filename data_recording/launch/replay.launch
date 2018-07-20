@@ -1,0 +1,29 @@
+<launch>
+    <!-- arguments -->
+    <arg name="filename"
+         doc="specify which file you'd like to load for replay. Don't include the extension">
+    </arg>
+    <arg name="filepath"
+         default="$(find data_recording)/rosbags"
+         doc="specify where the rosbag(s) live on your machine">
+    </arg>
+    <arg name="mode"
+         default="minimal"
+         doc="which replay config you want">
+    </arg>
+
+    <!-- visualizing the robot -->
+    <arg name="kinova_robotType" default="m1n6s300" />
+    <param name="robot_description" command="$(find xacro)/xacro --inorder '$(find kinova_description)/urdf/$(arg kinova_robotType)_standalone.xacro'" />
+
+    <node type="rviz" name="rviz" pkg="rviz" args="-d $(find data_recording)/config/$(arg mode).rviz" />
+
+    <!-- Playing the contents of the specified rosbag -->
+    <node pkg="rosbag"
+          type="play"
+          name="player"
+          output="screen"
+          args="--clock $(arg filepath)/$(arg filename).bag"
+          required="true"/>
+
+</launch>
