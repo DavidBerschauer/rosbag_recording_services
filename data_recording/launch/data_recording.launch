@@ -1,4 +1,4 @@
-<arg>
+<launch>
     <arg name="mode"
          default="minimal"
          doc="specify which file containing the topics to be read to be loaded">
