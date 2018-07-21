@@ -1,10 +1,10 @@
 # Data Recording
 This is a simple ROS package that allows starting and stopping rosbag recordings via service calls, 
 which is useful for performing repeated data collection. It also allows replaying those recordings for
-analyzing performance.
+analyzing performance. You can add annotations from within the code that will appear in Rviz during execution and replay.
 
 ## Run
-`roslaunch data_recording data_recording.launch` uses the default mode:=minimal.  
+`roslaunch data_recording data_recording.launch` uses the default mode:=minimal.
 
 ## Config
 The config files for the recording are in the config directory. You can choose between different settings and add new config files.
@@ -61,15 +61,22 @@ Publish an annotation any time anywhere using `annotation_pub.publish(text_marke
 If you want to test this functionality, launch the data_recording services as outlined above and
 run `rosrun data_recording example.py`.
 
+#### Visualizing annotations in Rviz
+
+You can visualize the annotations during execution and during replay in Rviz. In Rviz, simply press `add`, choose `Marker` and select the topic `data_recording/annotations`. During replay (section below), this has been stored for you in the Rviz config file already.
+
 ## Replaying a rosbag
 
 Kill all ROS nodes currently running. This file will launch all necessary nodes and rviz for you.
 
-```roslaunch data_recording replay.launch filename:=YOUR_RECORDING```
+1. Launch a `roscore` and set `rosparam set use_sim_time true` if you want looping to visualize correctly.
+2. `roslaunch data_recording replay.launch filename:=YOUR_RECORDING`.
 
+The rosbag won't start playing until you hit the spacebar. This is because Rviz takes a while to launch and could be replaced with a delay.
 This launch file assumes a specific path for the recordings which you can
-specify using `filepath:=YOUR_FILEPATH`.
+specify using `filepath:=YOUR_FILEPATH`. The default filepath is the same as that for saving rosbags;
+`data_recording/rosbags`.
 
-This launch file launches a specific rviz config file. You can make a new file, store it in the config folder
-and load it using the `mode` argument.
+This launch file launches a specific rviz config file. You can make a new config file, store it in the config folder and load it using the `mode` argument.
+
 

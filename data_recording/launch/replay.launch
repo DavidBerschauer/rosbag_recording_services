@@ -19,11 +19,12 @@
     <node type="rviz" name="rviz" pkg="rviz" args="-d $(find data_recording)/config/$(arg mode).rviz" />
 
     <!-- Playing the contents of the specified rosbag -->
+    <!-- Set to option pause: hit enter to start playing the contents -->
     <node pkg="rosbag"
           type="play"
           name="player"
           output="screen"
-          args="--clock $(arg filepath)/$(arg filename).bag"
-          required="true"/>
+          args="--clock --pause --loop $(arg filepath)/$(arg filename).bag"/>
+          required="true"
 
 </launch>

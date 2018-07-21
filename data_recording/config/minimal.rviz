@@ -26,7 +26,7 @@ Panels:
     Experimental: false
     Name: Time
     SyncMode: 0
-    SyncSource: ""
+    SyncSource: DepthCloud
 Visualization Manager:
   Class: ""
   Displays:
@@ -143,19 +143,117 @@ Visualization Manager:
       Value: true
       Visual Enabled: true
     - Class: rviz/TF
-      Enabled: false
+      Enabled: true
       Frame Timeout: 15
       Frames:
         All Enabled: false
+        G:
+          Value: true
+        camera_aligned_depth_to_color_frame:
+          Value: true
+        camera_aligned_depth_to_infra1_frame:
+          Value: true
+        camera_aligned_depth_to_infra2_frame:
+          Value: true
+        camera_color_frame:
+          Value: true
+        camera_color_optical_frame:
+          Value: true
+        camera_depth_frame:
+          Value: true
+        camera_depth_optical_frame:
+          Value: true
+        camera_infra1_frame:
+          Value: true
+        camera_infra1_optical_frame:
+          Value: true
+        camera_infra2_frame:
+          Value: true
+        camera_infra2_optical_frame:
+          Value: true
+        camera_link:
+          Value: false
+        m1n6s300_end_effector:
+          Value: true
+        m1n6s300_link_1:
+          Value: false
+        m1n6s300_link_2:
+          Value: false
+        m1n6s300_link_3:
+          Value: false
+        m1n6s300_link_4:
+          Value: false
+        m1n6s300_link_5:
+          Value: false
+        m1n6s300_link_6:
+          Value: false
+        m1n6s300_link_base:
+          Value: false
+        m1n6s300_link_finger_1:
+          Value: false
+        m1n6s300_link_finger_2:
+          Value: false
+        m1n6s300_link_finger_3:
+          Value: false
+        m1n6s300_link_finger_tip_1:
+          Value: false
+        m1n6s300_link_finger_tip_2:
+          Value: false
+        m1n6s300_link_finger_tip_3:
+          Value: false
+        root:
+          Value: false
+        world:
+          Value: true
       Marker Scale: 1
       Name: TF
       Show Arrows: true
       Show Axes: true
       Show Names: false
       Tree:
-        {}
+        world:
+          root:
+            m1n6s300_link_base:
+              G:
+                {}
+              m1n6s300_link_1:
+                m1n6s300_link_2:
+                  m1n6s300_link_3:
+                    m1n6s300_link_4:
+                      m1n6s300_link_5:
+                        m1n6s300_link_6:
+                          camera_link:
+                            camera_aligned_depth_to_color_frame:
+                              camera_color_optical_frame:
+                                {}
+                            camera_aligned_depth_to_infra1_frame:
+                              camera_infra1_optical_frame:
+                                {}
+                            camera_aligned_depth_to_infra2_frame:
+                              camera_infra2_optical_frame:
+                                {}
+                            camera_color_frame:
+                              {}
+                            camera_depth_frame:
+                              camera_depth_optical_frame:
+                                {}
+                            camera_infra1_frame:
+                              {}
+                            camera_infra2_frame:
+                              {}
+                          m1n6s300_end_effector:
+                            {}
+                          m1n6s300_link_finger_1:
+                            m1n6s300_link_finger_tip_1:
+                              {}
+                          m1n6s300_link_finger_2:
+                            m1n6s300_link_finger_tip_2:
+                              {}
+                          m1n6s300_link_finger_3:
+                            m1n6s300_link_finger_tip_3:
+                              {}
       Update Interval: 0
-      Value: false
+      Value: true
     - Alpha: 1
       Axes Length: 0.119999997
       Axes Radius: 0.00999999978
@@ -188,7 +286,7 @@ Visualization Manager:
       Color Transformer: RGB8
       Color Transport Hint: raw
       Decay Time: 0
-      Depth Map Topic: /camera/depth/image_rect_raw
+      Depth Map Topic: /camera/aligned_depth_to_color/image_raw
       Depth Map Transport Hint: raw
       Enabled: true
       Invert Rainbow: false
@@ -214,7 +312,7 @@ Visualization Manager:
       Marker Topic: /data_recording/annotations
       Name: Marker
       Namespaces:
-        {}
+        "": true
       Queue Size: 100
       Value: true
   Enabled: true
@@ -242,25 +340,25 @@ Visualization Manager:
   Views:
     Current:
       Class: rviz/Orbit
-      Distance: 4.57660246
+      Distance: 0.535962105
       Enable Stereo Rendering:
         Stereo Eye Separation: 0.0599999987
         Stereo Focal Distance: 1
         Swap Stereo Eyes: false
         Value: false
       Focal Point:
-        X: -1.37221408
-        Y: -1.25363851
-        Z: 0.92575115
+        X: -0.112777293
+        Y: 0.980374992
+        Z: 1.04466462
       Focal Shape Fixed Size: true
       Focal Shape Size: 0.0500000007
       Invert Z Axis: false
       Name: Current View
       Near Clip Distance: 0.00999999978
-      Pitch: 0.484797418
+      Pitch: 0.674797177
       Target Frame: <Fixed Frame>
       Value: Orbit (rviz)
-      Yaw: 3.94726253
+      Yaw: 1.94725144
     Saved: ~
 Window Geometry:
   Displays:

@@ -7,4 +7,6 @@ topics:
   - '/camera/color/camera_info'
   - '/ggcnn_out/command'
   - '/tf'
+  - '/tf_static'
+  - '/joint_states'
   - '/data_recording/annotations'
