@@ -36,7 +36,7 @@ class DataRecorder():
     def start_recording(self, req):
         if self.recording:
             rospy.logerr('Already Recording')
-            return TriggerResponse(False, 'Already Recording')
+            return RecordResponse(False, 'Already Recording')
 
         if req.bagname != '':
             command = ['rosrun', 'rosbag', 'record', '-e', '-O', req.bagname] + self.topics + \
