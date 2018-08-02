@@ -42,6 +42,10 @@ stop_record_srv(TriggerRequest())
 If you leave the `bagname` field of the `RecordRequest` empty, the file will be named using 
 the datetime of the recording.
 
+Make sure that stop_record_srv called before your node terminates, otherwise the service will continue recording. 
+To stop recording automatically when your node shuts down, you can register a hook `rospy.on_shutdown(shutdown)`
+where the `shutdown` method calls `stop_record_srv`.
+
 ### Annotations
 
 From within the code you can add annotations to the stored rosbags by publishing 
