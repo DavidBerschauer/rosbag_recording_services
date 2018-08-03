@@ -1,0 +1,13 @@
+# Configuration parameters for data recording node.
+
+topics:
+  - '/camera/aligned_depth_to_color/image_raw'
+  - '/camera/aligned_depth_to_color/camera_info'
+  - '/camera/color/image_raw'
+  - '/camera/color/camera_info'
+  - '/ggcnn_out/command'
+  - '/tf'
+  - '/tf_static'
+  - '/joint_states'
+  - '/data_recording/annotations'
+  - '/usb_cam/image_raw'
