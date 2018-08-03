@@ -2,6 +2,7 @@
 # Example of how to use the recording services
 # This assumes other relevant nodes you want to record are launched
 import rospy
+import signal
 
 from std_srvs.srv import Trigger, TriggerRequest
 from data_recording.srv import Record, RecordRequest
@@ -73,13 +74,16 @@ if __name__ == '__main__':
 
     annotation_pub = rospy.Publisher('/data_recording/annotations', Marker, queue_size=10)
 
+    # setup safe termination
+    def handler(signum, frame):
+        stop_record_srv(TriggerRequest())
+        rospy.loginfo('caught SIGINT, stopping recording and exiting...')
+        exit(0)
+    signal.signal(signal.SIGINT, handler)
+
     start_record_srv(RecordRequest('example_annotations'))
     # now do something we want to record
-    try:
-        something_interesting()
-    except Exception as e:
-        stop_record_srv(TriggerRequest())
-        raise e
-    stop_record_srv(TriggerRequest())
+    something_interesting()
+    stop_record_srv()
 
     rospy.loginfo('Example code has completed, please refer to README on how to replay the data')

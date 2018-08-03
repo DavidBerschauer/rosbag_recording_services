@@ -43,8 +43,20 @@ If you leave the `bagname` field of the `RecordRequest` empty, the file will be 
 the datetime of the recording.
 
 Make sure that stop_record_srv called before your node terminates, otherwise the service will continue recording. 
-To stop recording automatically when your node shuts down, you can register a hook `rospy.on_shutdown(shutdown)`
-where the `shutdown` method calls `stop_record_srv`.
+To stop recording automatically when your node shuts down, you can register a hook `rospy.on_shutdown(stop_record_srv)`. 
+This does not cover cases where the user cancels execution by hitting `Ctrl-C` (SIGINT). 
+You can set up a handler for this in a similar way. To conclude, you should have at least the following
+in the init of your node:
+
+```python
+import signal
+# in your init:
+rospy.on_shutdown(stop_record_srv) # when something else kills this node
+def handler(signum, frame):
+    stop_record_srv(TriggerRequest())
+    exit(0)
+signal.signal(signal.SIGINT, handler) # when the user shuts down the node
+```
 
 ### Annotations
 
