@@ -33,10 +33,19 @@ class DataRecorder():
         else:
             return self.start_recording(req)
 
+    def timeout(self, event):
+        """Stop recording when the timeout is reached, callback function"""
+        if self.recording:
+            rospy.logwarn("Reached recording limit, stopping recording!")
+            self.stop_recording(Trigger())
+
     def start_recording(self, req):
         if self.recording:
             rospy.logerr('Already Recording')
             return RecordResponse(False, 'Already Recording')
+
+        # start a timer to limit record time
+        self.timeout_timer = rospy.Timer(rospy.Duration(50), self.timeout, oneshot=True)
 
         if req.bagname != '':
             command = ['rosrun', 'rosbag', 'record', '-e', '-O', req.bagname] + self.topics + \
@@ -58,6 +67,7 @@ class DataRecorder():
 
         self.process = None
         self.recording = False
+        self.timeout_timer.shutdown()
 
         rospy.loginfo('Stopped Recording')
         return TriggerResponse(True, 'Stopped Recording')
