@@ -13,10 +13,11 @@ Rosbag files are saved with the current date and time as a filename.
 
 ## Usage
 
-The package creates three services:
-* `/data\_recording/start\_recording` which can be called with a `std_srvs.srv.RecordRequest` message
+The package creates four services:
+* `/data\_recording/start\_recording` which can be called with a `data_recording.srv.RecordRequest` message
 * `/data\_recording/stop\_recording` which can be called with a `std_srvs.srv.TriggerRequest` message
 * `/data\_recording/toggle\_recording` which can be called with a `std_srvs.srv.TriggerRequest` message
+* `/data\_recording/recording\_state` which can be called with a `data_recording.srv.RecordStateRequest` message
 
 Add the following imports to your ROS node:
 
@@ -34,7 +35,7 @@ stop_record_srv = rospy.ServiceProxy('/data_recording/stop_recording', Trigger)
 Then in a regular service call:
 
 ```python
-start_record_srv(RecordRequest('name of your file')  # this allows you to modify name based on e.g. the run
+start_record_srv(RecordRequest('name of your file', 0)  # this allows you to modify name based on e.g. the run, set timeout to 0 -> infinite
 do_some_stuff()
 stop_record_srv(TriggerRequest())
 ```
