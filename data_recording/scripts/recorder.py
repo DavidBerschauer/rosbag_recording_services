@@ -105,7 +105,10 @@ class DataRecorder():
 
     def get_bag_size(self) -> str:
         try:
-            file_stats = os.stat(os.path.join(self.output_directory, self.filename + '.bag.active'))
+            try:
+                file_stats = os.stat(os.path.join(self.output_directory, self.filename + '.bag.active'))
+            except:
+                file_stats = os.stat(os.path.join(self.output_directory, self.filename + '.bag'))
             if(file_stats.st_size > 1000000000):
                 return f'{file_stats.st_size/(1000000000):.2f} GB'
             if(file_stats.st_size > 1000000):
