@@ -1,5 +1,6 @@
 # Similar to the std_srvs/Trigger service, but include an input to take a rosbag filename
 string bagname
+int32 timeout
 ---
 bool success
 string message

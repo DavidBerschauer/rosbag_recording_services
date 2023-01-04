@@ -56,6 +56,7 @@ find_package(catkin REQUIRED COMPONENTS
 add_service_files(
   FILES
   Record.srv
+  RecordState.srv
 )
 
 ## Generate actions in the 'action' folder

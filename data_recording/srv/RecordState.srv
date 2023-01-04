@@ -1,0 +1,7 @@
+# Similar to the std_srvs/Trigger service
+---
+bool recording
+string filename
+string filesize
+string[] topics
+string remaining_time

@@ -1,2 +1,4 @@
 # ignore any rosbags made
 *.bag
+*.DS_Store
+data_recording/config/*.yaml
