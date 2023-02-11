@@ -97,6 +97,7 @@ class DataRecorder():
             remaining = f'{(self.timeout_time - datetime.now()).total_seconds():.1f}'
         else:
             remaining = '-'
+        self.topics = rospy.get_param('/data_recording/topics', [])
         return RecordStateResponse(self.recording, 
                                     self.filename,
                                     self.get_bag_size(),
