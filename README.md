@@ -112,11 +112,7 @@ Add a node for every topic you would like to check for health. For example:
 - ```title```: title published with every status update
 - ```timeout```: timeout for detecting a faulty topic in seconds
 - ```update_time```: interval for publishing OK updates. Timeouts and new data is handled immediately 
-- ```hz_precision```: float precision for publisching the frequency in OK Updates
-- ```warning_timeout```: not implemented yet
+- ```hz_min```: minimum hz, status type is ```TopicHealt.TYPE_WARNING``` when publish frequency is lower
 
 ## Published data
-JSON as ```std_msgs.msg.String``` on topic ```{topic}/status``` for the following states:
-- not available/no data: ```{"title":"{title}","type":"N/A"}```
-- OK: ```{"title":"{title}","type":"OK", "hz":"{publish frequency}"}```
-- timeout: ```{"title":"{title}","type":"Timeout"}```
+```health_checks.msg.TopicHealth``` on topic ```{topic}/status```
