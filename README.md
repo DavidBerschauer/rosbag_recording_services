@@ -101,10 +101,12 @@ This launch file launches a specific rviz config file. You can make a new config
 ## Usage
 Add a node for every topic you would like to check for health. For example:
 ```xml
-<node name="imu_health_check" pkg="data_recording" type="topic_health_check.py" output="screen">
+<node name="imu_health_check" pkg="health_checks" type="topic_health_check.py" output="screen">
     <param name="title" value="IMU" />
     <param name="topic" value="/imu/data" />
-    <param name="timeout" value="0.1" />
+    <param name="timeout" value="0.5" />
+    <param name="update_time" value="2"/>
+    <param name="hz_min" value="100"/>
 </node>
 ```
 ### Available parameters
